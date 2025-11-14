@@ -136,29 +136,31 @@ document.addEventListener('DOMContentLoaded', () => {
             // 필수로 표시된 필드들을 검사합니다.
             const requiredFields = surveyForm.querySelectorAll('[required]');
             let allFieldsFilled = true;
+
+            // 기존 에러 클래스 초기화
+            surveyForm.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            surveyForm.querySelectorAll('.has-validation-error').forEach(el => el.classList.remove('has-validation-error'));
+            if (starRatingContainer) starRatingContainer.classList.remove('is-invalid-stars');
+
             requiredFields.forEach(field => {
                 if (field.type === 'radio') {
+                    // 라디오 버튼 그룹의 유효성 검사는 그룹 내 하나라도 선택되었는지 확인
                     const radioGroup = surveyForm.querySelector(`input[name="${field.name}"]:checked`);
                     if (!radioGroup) {
-                        field.closest('div.mb-3').classList.add('has-validation-error'); // 부모 요소에 에러 표시
+                        // 부모 div에 클래스를 추가하여 시각적 오류를 표시
+                        field.closest('div.mb-3').classList.add('has-validation-error');
                         allFieldsFilled = false;
-                    } else {
-                        field.closest('div.mb-3').classList.remove('has-validation-error');
                     }
                 } else if (!field.value.trim()) {
                     field.classList.add('is-invalid'); // Bootstrap 유효성 검사 클래스 추가
                     allFieldsFilled = false;
-                } else {
-                    field.classList.remove('is-invalid');
                 }
             });
 
             // 별점 필드도 검사
-            if (!tasteRateInput.value || tasteRateInput.value === "0") {
+            if (!tasteRateInput || !tasteRateInput.value || tasteRateInput.value === "0") {
                 starRatingContainer.classList.add('is-invalid-stars'); // 커스텀 클래스 추가
                 allFieldsFilled = false;
-            } else {
-                starRatingContainer.classList.remove('is-invalid-stars');
             }
 
             if (!allFieldsFilled) {
@@ -219,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (error) {
                 console.error('설문 데이터 전송 실패:', error);
-                alert('설문 제출 중 오류가 발생했습니다: ' + error.message + '\n콘솔 로그를 확인해주세요.');
+                alert('설문 제출 중 오류가 발생했습니다: ' + error.message + '\n콘솔 로그를 확인해주세요. (F12키를 눌러 Console 탭 확인)');
             } finally {
                 // 버튼 상태 원래대로 복구
                 if (submitBtn) {
