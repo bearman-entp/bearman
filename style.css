@@ -5,7 +5,7 @@
     --bearman-white: #FFFFFF;
     --bearman-dark-gray: #2C3E50; /* 이전보다 더 진한 다크 그레이로 변경 - 글자 가독성 UP! */
     --bearman-light-gray: #ECF0F1;
-    --bearman-dark-text-on-light-bg: #333333; /* 밝은 배경 위 어두운 글자를 위한 색 */
+    --bearman-dark-text-on-light-bg: #000000; /* 밝은 배경 위 어두운 글자를 위한 색 */
 }
 
 body {
