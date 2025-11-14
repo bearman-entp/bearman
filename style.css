@@ -3,31 +3,32 @@
     --bearman-red: #E74C3C; /* Strong Red */
     --bearman-dark-red: #C0392B; /* Darker Red for accents */
     --bearman-white: #FFFFFF;
-    --bearman-dark-gray: #2C3E50; /* 이전보다 더 진한 다크 그레이로 변경 - 글자 가독성 UP! */
+    --bearman-dark-gray: #2C3E50; /* 이전보다 더 진한 다크 그레이 */
     --bearman-light-gray: #ECF0F1;
-    --bearman-dark-text-on-light-bg: #000000; /* 밝은 배경 위 어두운 글자를 위한 색 */
+    --bearman-dark-text-on-light-bg: #212529; /* 거의 검정에 가까운 색으로 변경하여 가독성 극대화 */
 }
 
 body {
     font-family: 'Segoe UI', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
     background-color: var(--bearman-light-gray);
-    color: var(--bearman-dark-text-on-light-bg); /* 기본 글씨 색상을 짙은 회색으로 변경! */
+    color: var(--bearman-dark-text-on-light-bg) !important; /* 기본 글씨 색상을 가장 진하게! */
     overflow-x: hidden; /* Prevent horizontal scroll due to animations */
     scroll-behavior: smooth; /* 부드러운 스크롤 */
 }
 
 /* --- Global Styles --- */
+/* 모든 .text-dark-text-on-light-bg 클래스에도 !important 추가 */
+.text-dark-text-on-light-bg { color: var(--bearman-dark-text-on-light-bg) !important; }
 .text-red { color: var(--bearman-red) !important; }
-.text-dark-gray { color: var(--bearman-dark-gray) !important; }
+.text-dark-gray { color: var(--bearman-dark-gray) !important; } /* 이전 버전과의 호환을 위해 유지하지만 권장x */
 .bg-dark-red { background-color: var(--bearman-dark-red) !important; }
 .border-red { border-color: var(--bearman-red) !important; }
 
 /* Custom Buttons */
-/* 빨간 버튼은 흰색 배경 이미지 위에서 잘 보이도록, 글씨를 어두운색으로 변경 */
 .custom-btn-red {
     background-color: var(--bearman-red);
     border-color: var(--bearman-red);
-    color: var(--bearman-white); /* 기본은 흰색 텍스트 유지. 이미지 위에서는 text-shadow 추가 */
+    color: var(--bearman-white);
     transition: all 0.3s ease-in-out;
 }
 .custom-btn-red:hover {
@@ -36,20 +37,11 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(var(--bearman-dark-red), 0.4);
 }
-/* 이미지 위에 있는 버튼을 위한 추가 스타일 - 텍스트를 어둡게 또는 그림자 추가 */
-.hero-buttons .custom-btn-red {
-    color: var(--bearman-white); /* 흰색 배경 이미지에 대비하기 위해 text-shadow 추가 */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* 그림자 추가 */
-}
-.hero-buttons .custom-btn-red:hover {
-    text-shadow: none; /* 호버 시 그림자 제거 (깔끔하게) */
-}
-
 
 .custom-btn-white {
     background-color: var(--bearman-white);
     border-color: var(--bearman-red);
-    color: var(--bearman-red); /* 흰색 버튼 위의 글씨는 빨간색으로 잘 보입니다 */
+    color: var(--bearman-red);
     transition: all 0.3s ease-in-out;
 }
 .custom-btn-white:hover {
@@ -72,46 +64,49 @@ body {
     padding-top: 56px; /* Adjust for fixed-top navbar */
 }
 
-.hero-section::before {
-    content: '';
+/* Hero 이미지 자체는 뒷배경으로 */
+#heroImage {
+    position: absolute; /* 절대 위치로 오버레이 뒤에 놓기 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 섹션을 꽉 채우도록 */
+    border-radius: 0; /* 배경 이미지처럼 쓰기 위해 라운딩 제거 */
+    box-shadow: none; /* 그림자 제거 */
+    z-index: 1; /* 오버레이보다 아래에 */
+    transform: translateY(100vh); /* Start from bottom */
+    opacity: 0;
+}
+
+/* Hero 이미지 위에 겹쳐질 오버레이 (버튼 포함) */
+.hero-overlay {
+    z-index: 2; /* 이미지 위에 */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzgiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgNzggMTAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy5wMy5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNCAwVjIuNTU1NjdMNy43MDYyMiA1LjA2ODExTDQuMzU1MjUgOC41ODY2OEw4LjMxNTkzIDguMDgzMjJMOS4zMjEwNiAxNC42NDI3TDE1LjI1NTggMTEuMjMyOEwxOC41NTc5IDE1LjkwOTlMOS41NTIxOSAyNi4zMTQ4TDE1Ljc1ODYgMzAuODE3TDUuNjgyMDUgNDkuMDE0NUw4LjEzOTAyIDQ5LjY4NDhMMTguNzUwNCAzNC41NTQ2TDI4LjQxNjIgMzcuMzg2MkwyNC42MzMyIDQyLjM3MDJMMzQuOTE1MiA0Ni4xNzg0TDM1LjMwODkgNDAuMTczMUw0MS43MzQ1IDQ0LjA5NThMNDIuMTQ3NyAzOC4xMTA1TDUuMjUxOSA0OC4yNTAxTDE3Ljc3MDkgNjguMTcxM0wxNi45MTEgNjguNDk4MkwzNy41MjM2IDc3LjQ2MzVMMzcuMTkwMyA4My4yNzEzTDQxLjIxNiA4My4wOTI2TDQyLjE4MTEgNzYuODE2OUw1NS42NTI4IDcxLjA1MTJMNTkuMDgzNyA2Ni44NTkzTDUwLjIxNDMgMzMuNTE3TDQzLjI4NzMgMzAuNjcxOUw0NS40NTkyIDI1LjMxODVMNDguNTM3MSAyNy40MTgyTDUzLjgxNDIgMjMuMTcyNUw0My4yNzk1IDE1LjY4ODFMNDQuMzA2NCAxNS4xMjcyTDQ5Ljk1NTYgMTguNTI5MUw1NS41ODgyIDE1Ljk0MTZMNTAuODAxMyAxMy41MDEzTDU2LjEyNzcgMTAuNzc4TDU4LjgwMTMgNi45MjM2M0w2My4yMDY4IDguOTUxNzlMNTUuNzU4NiAwSDU4LjkwNzZMNzggMkg3OEwyNS44NzMyIDEwMFpNMzIgNzcuNjA1MkwzMi4wNTE2IDgwLjE0MTZMNjIuOTQ0NCAyOS45OTE0TDYyLjg5MjcgMjcuNDUzTDMyIDc3LjYwNTJaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjMiLz4=');
-    /* background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); // 대체 패턴 */
-    opacity: 0.1; /* Semi-transparent pattern overlay */
-    z-index: 1;
+    /* 선택적으로 오버레이 색상/그라데이션 추가하여 버튼 가독성 높일 수 있음 */
+    /* background-color: rgba(0, 0, 0, 0.3); */
 }
 
-#heroImage {
-    max-width: 90%;
-    max-height: 80vh;
-    height: auto;
-    object-fit: contain;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    z-index: 2;
-    transform: translateY(100vh); /* Start from bottom */
-    opacity: 0;
-}
-
-/* Animations for hero section elements */
-.animate-on-load {
-    animation: slideUpAndFadeIn 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); /* easeOutQuad-like */
+/* 이미지 로드 애니메이션 (이미지 자체는 배경으로 동작) */
+#heroImage.animate-on-load {
+    animation: heroImageSlideIn 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
     animation-delay: 0.5s; /* Image appears after 0.5s */
 }
+@keyframes heroImageSlideIn {
+    0% { transform: translateY(100vh); opacity: 0; }
+    70% { transform: translateY(-0%); opacity: 1; } /* 화면 위로 올라온 후 */
+    100% { transform: translateY(0); opacity: 1; } /* 최종 위치 */
+}
 
+/* 버튼 애니메이션 (오버레이 안에 있으므로 z-index 문제 없음) */
 .hero-buttons.animate-fade-in {
     animation: fadeIn 1s forwards;
     animation-delay: 1.5s; /* Buttons appear after image */
-}
-
-@keyframes slideUpAndFadeIn {
-    0% { transform: translateY(100vh); opacity: 0; }
-    70% { transform: translateY(-20px); opacity: 1; }
-    100% { transform: translateY(0); opacity: 1; }
+    z-index: 3; /* 혹시 모를 상황 대비 */
 }
 
 @keyframes fadeIn {
@@ -125,17 +120,21 @@ body {
     font-size: 1.6rem;
     position: relative;
     display: inline-block;
-    overflow: hidden; /* For char-by-char animation */
-    color: var(--bearman-white) !important; /* Navbar 브랜드 글씨는 흰색 유지 */
+    overflow: hidden;
+    color: var(--bearman-white) !important;
 }
 
 .animate-char-by-char span {
     display: inline-block;
     opacity: 0;
     animation: charFadeIn 0.8s forwards;
-    color: var(--bearman-white); /* Navbar 브랜드 글씨는 흰색 유지 */
+    color: var(--bearman-white) !important; /* Navbar 브랜드 글씨 흰색 고정 */
 }
-/* ... animate-char-by-char span:nth-child(...) animation-delay는 그대로 두세요 ... */
+.animate-char-by-char span:nth-child(1) { animation-delay: 0.2s; }
+.animate-char-by-char span:nth-child(2) { animation-delay: 0.25s; }
+.animate-char-by-char span:nth-child(3) { animation-delay: 0.3s; }
+.animate-char-by-char span:nth-child(4) { animation-delay: 0.35s; }
+/* ... (나머지 자식 요소들도 비슷한 방식으로 딜레이 적용) ... */
 
 @keyframes charFadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -147,7 +146,7 @@ body {
     overflow: hidden;
     padding-bottom: 5px; /* Space for underline */
     transition: color 0.3s ease;
-    color: var(--bearman-white) !important; /* Navbar 링크 글씨는 흰색 유지 */
+    color: var(--bearman-white) !important; /* Navbar 링크 글씨 흰색 고정 */
 }
 .nav-link.nav-effect::after {
     content: '';
@@ -167,7 +166,7 @@ body {
     color: var(--bearman-red) !important; /* Navbar 호버 시 빨간색 */
 }
 
-/* --- Section Scrolling Animations (general) --- */
+/* --- Content Section Text Colors (모든 텍스트 명확히 지정) --- */
 .content-section {
     background-color: var(--bearman-white);
     border-radius: 10px;
@@ -176,48 +175,94 @@ body {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    color: var(--bearman-dark-text-on-light-bg); /* content-section 내부 기본 글씨색 짙은 회색으로 변경 */
+    color: var(--bearman-dark-text-on-light-bg) !important; /* 이 섹션 내 모든 기본 텍스트는 이 색! */
 }
-/* content-section 내부 h2 태그의 색상도 명확히 지정 */
-.content-section h2 {
+.content-section h1, .content-section h2, .content-section h3, .content-section h4, .content-section h5, .content-section h6 {
     color: var(--bearman-red) !important;
 }
-/* content-section 내부 p 태그의 색상도 명확히 지정 */
 .content-section p {
     color: var(--bearman-dark-text-on-light-bg) !important;
 }
-/* content-section 내부 ul li 태그의 색상도 명확히 지정 */
 .content-section ul li {
     color: var(--bearman-dark-text-on-light-bg) !important;
 }
+.content-section .card-title {
+    color: var(--bearman-red) !important;
+}
+.content-section .card-text {
+    color: var(--bearman-dark-text-on-light-bg) !important;
+}
 
-/* ... (이하 모든 CSS 코드는 이전과 동일하게 유지) ... */
-/* 혹시 다른 섹션(예: footer)에 흰색 글자가 보이지 않는다면 해당 섹션에
-   `color: var(--bearman-dark-text-on-light-bg) !important;`
-   스타일을 추가해주시면 됩니다. */
-
-
-/* 설문조사 모달 내부의 기본 텍스트 색상도 명확히 지정 */
+/* Modal Body Text Colors (모달 내부 모든 텍스트 명확히 지정) */
 .modal-body {
-    color: var(--bearman-dark-text-on-light-bg);
-}
-.modal-body p {
     color: var(--bearman-dark-text-on-light-bg) !important;
 }
-.modal-body label {
+.modal-body p, .modal-body label, .modal-body small {
     color: var(--bearman-dark-text-on-light-bg) !important;
+}
+.modal-body .form-text.text-muted { /* text-muted는 그대로 유지 (회색) */
+    color: #6c757d !important;
 }
 
-/* 라디오 버튼 그룹의 필수 입력 시 시각적 경고 */
-/* label 색상이 is-invalid에 의해 변경될 때도 대비 */
-.has-validation-error label.form-label {
-    color: var(--bearman-dark-text-on-light-bg); /* 기본 라벨 색상 유지 */
+/* 나머지 CSS는 이전과 동일하게 유지 */
+/* --- Section Scrolling Animations --- */
+.content-section.fade-in {
+    opacity: 1;
+    transform: translateY(0);
 }
-/* 실제 라디오/체크박스 인풋 자체의 border-color만 빨간색으로 */
-.has-validation-error .form-check-input:not(:checked) {
-    border-color: var(--bearman-red) !important; /* 필수 필드 미선택 시 경고 */
-    box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
+.fade-in-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.fade-in-scroll.show { opacity: 1; transform: translateY(0); }
+.slide-in-left-scroll { opacity: 0; transform: translateX(-50px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.slide-in-left-scroll.show { opacity: 1; transform: translateX(0); }
+.slide-in-right-scroll { opacity: 0; transform: translateX(50px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.slide-in-right-scroll.show { opacity: 1; transform: translateX(0); }
+.scale-up-scroll { opacity: 0; transform: scale(0.95); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.scale-up-scroll.show { opacity: 1; transform: scale(1); }
+.slide-in-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.slide-in-scroll.show { opacity: 1; transform: translateY(0); }
+
+/* --- Card Hover Effects --- */
+.card-hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
+.card-hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--bearman-dark-red);
+}
+
+/* Animated Border for Images */
+.animated-border {
+    position: relative;
+    padding: 5px; /* Border thickness */
+    background: linear-gradient(45deg, var(--bearman-red), var(--bearman-dark-red));
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite alternate;
+}
+.animated-border img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* Invite List Icons */
+.invite-list i {
+    font-size: 1.2rem;
+    min-width: 25px;
+}
+
+/* --- Survey Modal Styling --- */
+.modal-content { border-radius: 10px; overflow: hidden; }
+.modal-header { border-bottom: none; padding: 1.5rem; }
+.modal-title { font-weight: bold; color: var(--bearman-white); }
+.btn-close-white { filter: invert(1) brightness(2); }
+.form-label.required::after { content: ' *'; color: var(--bearman-red); }
 
 /* 별점 선택 필수 여부 강조를 위한 스타일 */
 .star-rating.is-invalid-stars {
@@ -225,4 +270,74 @@ body {
     padding: 5px;
     border-radius: 5px;
     box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
+}
+/* 라디오 버튼 그룹의 필수 입력 시 시각적 경고 */
+.has-validation-error label.form-label {
+    color: var(--bearman-dark-text-on-light-bg) !important; /* 기본 라벨 색상 유지 */
+}
+.has-validation-error .form-check-input:not(:checked) {
+    border-color: var(--bearman-red) !important;
+    box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
+}
+.star-rating {
+    font-size: 2rem;
+    color: #FFD700;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 5px;
+}
+.star-rating i { transition: transform 0.2s ease, color 0.2s ease; }
+.star-rating i:hover { transform: scale(1.1); }
+.star-rating .far { color: #ccc; }
+.star-rating .fas { color: #FFD700; }
+
+/* Audio Control */
+.audio-control {
+    position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px;
+    background-color: var(--bearman-dark-red); color: var(--bearman-white);
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1050; transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.audio-control:hover { background-color: var(--bearman-red); transform: scale(1.05); }
+
+/* Survey Submit Button Spinner */
+.survey-submit-btn .spinner-border { margin-right: 0.5rem; }
+
+/* Submit Success Modal Rocket Animation */
+.animate-rocket { animation: bounceAndScale 1s infinite alternate; }
+@keyframes bounceAndScale {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-10px) scale(1.05); }
+}
+
+/* General pulse animation for calls to action */
+.animate-pulse { animation: pulse 1.5s infinite; }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: var(--bearman-dark-red);
+        border-radius: 0 0 10px 10px;
+        margin-top: 5px;
+        padding-bottom: 10px;
+    }
+    .navbar-nav .nav-item { margin-left: 0; margin-top: 5px; text-align: center; }
+    .navbar-brand.animate-char-by-char { text-align: center; width: 100%; font-size: 1.4rem; }
+    .hero-buttons {
+        flex-direction: column;
+    }
+    .hero-buttons .btn {
+        width: 90%;
+        margin-bottom: 1rem;
+        margin-right: 0 !important;
+    }
+}
+@media (max-width: 767.98px) {
+    .navbar-brand { font-size: 1.3rem; }
 }
