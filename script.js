@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('errorMessage');
 
     // **IMPORTANT**: Replace with your deployed Google Apps Script Web App URL
-    const GOOGLE_APPS_SCRIPT_WEB_APP_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; 
+    const GOOGLE_APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwbH_gtT0FrgRL5op4cSDkhE8JMuJkZq6p21_ymd1CIE1G_TZwUGkwPSYoOT8EjbQZHhA/exec'; 
     // 예시: 'https://script.google.com/macros/s/AKfycbzzzzz_your_deploy_id_zzzzzz/exec'
 
     surveyForm.addEventListener('submit', async (event) => {
