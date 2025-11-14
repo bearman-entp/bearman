@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Apps Script 웹 앱 URL (★★ 여기에 본인의 배포된 Apps Script URL을 넣어주세요! ★★)
-            const appsScriptUrl = 'YOUR_DEPLOYED_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; // 이 부분을 반드시 수정!
+            const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbx-LYh9ZFn_zyDFpkF0s9SHL9i0TlRmQaeT-mR8PQYc2fyq5SpT6GpITfA-EKR4higYnA/exec'; // 이 부분을 반드시 수정!
 
             try {
                 const response = await fetch(appsScriptUrl, {
