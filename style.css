@@ -1,343 +1,159 @@
-/* Custom Colors */
-:root {
-    --bearman-red: #E74C3C; /* Strong Red */
-    --bearman-dark-red: #C0392B; /* Darker Red for accents */
-    --bearman-white: #FFFFFF;
-    --bearman-dark-gray: #2C3E50; /* 이전보다 더 진한 다크 그레이 */
-    --bearman-light-gray: #ECF0F1;
-    --bearman-dark-text-on-light-bg: #212529; /* 거의 검정에 가까운 색으로 변경하여 가독성 극대화 */
-}
-
+/* Custom CSS for '정상인 곰돌맨' */
 body {
-    font-family: 'Segoe UI', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
-    background-color: var(--bearman-light-gray);
-    color: var(--bearman-dark-text-on-light-bg) !important; /* 기본 글씨 색상을 가장 진하게! */
-    overflow-x: hidden; /* Prevent horizontal scroll due to animations */
-    scroll-behavior: smooth; /* 부드러운 스크롤 */
+    font-family: 'Roboto Mono', monospace, sans-serif; /* 공학자 느낌 폰트 */
+    background-color: #212529; /* Dark background */
+    color: #f8f9fa; /* Light text */
 }
 
-/* --- Global Styles --- */
-/* 모든 .text-dark-text-on-light-bg 클래스에도 !important 추가 */
-.text-dark-text-on-light-bg { color: var(--bearman-dark-text-on-light-bg) !important; }
-.text-red { color: var(--bearman-red) !important; }
-.text-dark-gray { color: var(--bearman-dark-gray) !important; } /* 이전 버전과의 호환을 위해 유지하지만 권장x */
-.bg-dark-red { background-color: var(--bearman-dark-red) !important; }
-.border-red { border-color: var(--bearman-red) !important; }
-
-/* Custom Buttons */
-.custom-btn-red {
-    background-color: var(--bearman-red);
-    border-color: var(--bearman-red);
-    color: var(--bearman-white);
-    transition: all 0.3s ease-in-out;
-}
-.custom-btn-red:hover {
-    background-color: var(--bearman-dark-red);
-    border-color: var(--bearman-dark-red);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(var(--bearman-dark-red), 0.4);
+/* Navbar customization */
+#mainNavbar {
+    background-color: rgba(220, 53, 69, 0.9); /* Red with slight transparency */
+    border-bottom: 3px solid #ffc107; /* 강조색으로 신선한 느낌 */
 }
 
-.custom-btn-white {
-    background-color: var(--bearman-white);
-    border-color: var(--bearman-red);
-    color: var(--bearman-red);
-    transition: all 0.3s ease-in-out;
-}
-.custom-btn-white:hover {
-    background-color: var(--bearman-light-gray);
-    border-color: var(--bearman-dark-red);
-    color: var(--bearman-dark-red);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+#mainNavbar .navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
 }
 
-/* --- Hero Section (메인 홈 화면) --- */
-.hero-section {
+#mainNavbar .nav-link {
+    color: #f8f9fa;
+    margin: 0 10px;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#mainNavbar .nav-link:hover {
+    color: #ffc107; /* Highlight color on hover */
+    transform: scale(1.05); /* Subtle grow effect */
+}
+
+#mainNavbar .nav-link.active {
+    color: #f8f9fa;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+/* Homepage Hero Section */
+#home {
+    background-color: #212529;
     position: relative;
-    background: linear-gradient(135deg, var(--bearman-dark-red) 0%, var(--bearman-red) 100%);
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding-top: 56px; /* Adjust for fixed-top navbar */
+    overflow: hidden; /* For animation */
 }
 
-/* Hero 이미지 자체는 뒷배경으로 */
-#heroImage {
-    position: absolute; /* 절대 위치로 오버레이 뒤에 놓기 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 이미지가 섹션을 꽉 채우도록 */
-    border-radius: 0; /* 배경 이미지처럼 쓰기 위해 라운딩 제거 */
-    box-shadow: none; /* 그림자 제거 */
-    z-index: 1; /* 오버레이보다 아래에 */
-    transform: translateY(100vh); /* Start from bottom */
-    opacity: 0;
-}
-
-/* Hero 이미지 위에 겹쳐질 오버레이 (버튼 포함) */
-.hero-overlay {
-    z-index: 2; /* 이미지 위에 */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* 선택적으로 오버레이 색상/그라데이션 추가하여 버튼 가독성 높일 수 있음 */
-    /* background-color: rgba(0, 0, 0, 0.3); */
-}
-
-/* 이미지 로드 애니메이션 (이미지 자체는 배경으로 동작) */
-#heroImage.animate-on-load {
-    animation: heroImageSlideIn 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    animation-delay: 0.5s; /* Image appears after 0.5s */
-}
-@keyframes heroImageSlideIn {
-    0% { transform: translateY(100vh); opacity: 0; }
-    70% { transform: translateY(-0%); opacity: 1; } /* 화면 위로 올라온 후 */
-    100% { transform: translateY(0); opacity: 1; } /* 최종 위치 */
-}
-
-/* 버튼 애니메이션 (오버레이 안에 있으므로 z-index 문제 없음) */
-.hero-buttons.animate-fade-in {
-    animation: fadeIn 1s forwards;
-    animation-delay: 1.5s; /* Buttons appear after image */
-    z-index: 3; /* 혹시 모를 상황 대비 */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* --- Navbar Animations --- */
-.navbar-brand {
-    font-weight: bold;
-    font-size: 1.6rem;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    color: var(--bearman-white) !important;
-}
-
-.animate-char-by-char span {
-    display: inline-block;
-    opacity: 0;
-    animation: charFadeIn 0.8s forwards;
-    color: var(--bearman-white) !important; /* Navbar 브랜드 글씨 흰색 고정 */
-}
-.animate-char-by-char span:nth-child(1) { animation-delay: 0.2s; }
-.animate-char-by-char span:nth-child(2) { animation-delay: 0.25s; }
-.animate-char-by-char span:nth-child(3) { animation-delay: 0.3s; }
-.animate-char-by-char span:nth-child(4) { animation-delay: 0.35s; }
-/* ... (나머지 자식 요소들도 비슷한 방식으로 딜레이 적용) ... */
-
-@keyframes charFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.nav-link.nav-effect {
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 5px; /* Space for underline */
-    transition: color 0.3s ease;
-    color: var(--bearman-white) !important; /* Navbar 링크 글씨 흰색 고정 */
-}
-.nav-link.nav-effect::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--bearman-red);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-}
-.nav-link.nav-effect:hover::after {
-    transform: translateX(0%);
-}
-.nav-link.nav-effect:hover {
-    color: var(--bearman-red) !important; /* Navbar 호버 시 빨간색 */
-}
-
-/* --- Content Section Text Colors (모든 텍스트 명확히 지정) --- */
-.content-section {
-    background-color: var(--bearman-white);
+.premiere-image {
+    max-width: 90%;
+    height: auto;
     border-radius: 10px;
-    margin-bottom: 3rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    color: var(--bearman-dark-text-on-light-bg) !important; /* 이 섹션 내 모든 기본 텍스트는 이 색! */
-}
-.content-section h1, .content-section h2, .content-section h3, .content-section h4, .content-section h5, .content-section h6 {
-    color: var(--bearman-red) !important;
-}
-.content-section p {
-    color: var(--bearman-dark-text-on-light-bg) !important;
-}
-.content-section ul li {
-    color: var(--bearman-dark-text-on-light-bg) !important;
-}
-.content-section .card-title {
-    color: var(--bearman-red) !important;
-}
-.content-section .card-text {
-    color: var(--bearman-dark-text-on-light-bg) !important;
+    box-shadow: 0 0 20px rgba(220, 53, 69, 0.5);
+    opacity: 0; /* Hidden initially for animation */
+    transform: translateY(50px); /* Start from below */
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-/* Modal Body Text Colors (모달 내부 모든 텍스트 명확히 지정) */
-.modal-body {
-    color: var(--bearman-dark-text-on-light-bg) !important;
-}
-.modal-body p, .modal-body label, .modal-body small {
-    color: var(--bearman-dark-text-on-light-bg) !important;
-}
-.modal-body .form-text.text-muted { /* text-muted는 그대로 유지 (회색) */
-    color: #6c757d !important;
-}
-
-/* 나머지 CSS는 이전과 동일하게 유지 */
-/* --- Section Scrolling Animations --- */
-.content-section.fade-in {
+.premiere-image.loaded {
     opacity: 1;
     transform: translateY(0);
 }
-.fade-in-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-.fade-in-scroll.show { opacity: 1; transform: translateY(0); }
-.slide-in-left-scroll { opacity: 0; transform: translateX(-50px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-.slide-in-left-scroll.show { opacity: 1; transform: translateX(0); }
-.slide-in-right-scroll { opacity: 0; transform: translateX(50px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-.slide-in-right-scroll.show { opacity: 1; transform: translateX(0); }
-.scale-up-scroll { opacity: 0; transform: scale(0.95); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-.scale-up-scroll.show { opacity: 1; transform: scale(1); }
-.slide-in-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-.slide-in-scroll.show { opacity: 1; transform: translateY(0); }
 
-/* --- Card Hover Effects --- */
-.card-hover-effect {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.card-hover-effect:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: var(--bearman-dark-red);
+.premiere-buttons {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s; /* Delay for button animation */
 }
 
-/* Animated Border for Images */
-.animated-border {
-    position: relative;
-    padding: 5px; /* Border thickness */
-    background: linear-gradient(45deg, var(--bearman-red), var(--bearman-dark-red));
-    background-size: 200% 200%;
-    animation: gradientShift 5s ease infinite alternate;
-}
-.animated-border img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+.premiere-buttons.loaded {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Invite List Icons */
-.invite-list i {
-    font-size: 1.2rem;
-    min-width: 25px;
+/* Section styling */
+section {
+    padding: 80px 0;
+    min-height: 50vh;
 }
 
-/* --- Survey Modal Styling --- */
-.modal-content { border-radius: 10px; overflow: hidden; }
-.modal-header { border-bottom: none; padding: 1.5rem; }
-.modal-title { font-weight: bold; color: var(--bearman-white); }
-.btn-close-white { filter: invert(1) brightness(2); }
-.form-label.required::after { content: ' *'; color: var(--bearman-red); }
-
-/* 별점 선택 필수 여부 강조를 위한 스타일 */
-.star-rating.is-invalid-stars {
-    border: 1px solid var(--bearman-red);
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
+#introduction {
+    background-color: #f8f9fa; /* White section */
+    color: #212529;
 }
-/* 라디오 버튼 그룹의 필수 입력 시 시각적 경고 */
-.has-validation-error label.form-label {
-    color: var(--bearman-dark-text-on-light-bg) !important; /* 기본 라벨 색상 유지 */
-}
-.has-validation-error .form-check-input:not(:checked) {
-    border-color: var(--bearman-red) !important;
-    box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
-}
-.star-rating {
-    font-size: 2rem;
-    color: #FFD700;
-    cursor: pointer;
-    display: inline-block;
-    padding: 0 5px;
-}
-.star-rating i { transition: transform 0.2s ease, color 0.2s ease; }
-.star-rating i:hover { transform: scale(1.1); }
-.star-rating .far { color: #ccc; }
-.star-rating .fas { color: #FFD700; }
-
-/* Audio Control */
-.audio-control {
-    position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px;
-    background-color: var(--bearman-dark-red); color: var(--bearman-white);
-    border-radius: 50%; display: flex; justify-content: center; align-items: center;
-    cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1050; transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.audio-control:hover { background-color: var(--bearman-red); transform: scale(1.05); }
-
-/* Survey Submit Button Spinner */
-.survey-submit-btn .spinner-border { margin-right: 0.5rem; }
-
-/* Submit Success Modal Rocket Animation */
-.animate-rocket { animation: bounceAndScale 1s infinite alternate; }
-@keyframes bounceAndScale {
-    0% { transform: translateY(0) scale(1); }
-    100% { transform: translateY(-10px) scale(1.05); }
+#introduction h2 {
+    color: #DC3545; /* Red heading */
 }
 
-/* General pulse animation for calls to action */
-.animate-pulse { animation: pulse 1.5s infinite; }
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
+#future-content {
+    background-color: #DC3545; /* Red section */
+    color: #f8f9fa;
 }
 
-/* Media Queries for Responsiveness */
-@media (max-width: 991.98px) {
-    .navbar-collapse {
-        background-color: var(--bearman-dark-red);
-        border-radius: 0 0 10px 10px;
-        margin-top: 5px;
-        padding-bottom: 10px;
-    }
-    .navbar-nav .nav-item { margin-left: 0; margin-top: 5px; text-align: center; }
-    .navbar-brand.animate-char-by-char { text-align: center; width: 100%; font-size: 1.4rem; }
-    .hero-buttons {
-        flex-direction: column;
-    }
-    .hero-buttons .btn {
-        width: 90%;
-        margin-bottom: 1rem;
-        margin-right: 0 !important;
-    }
+#future-content .card {
+    border: 1px solid #f8f9fa; /* White border for cards */
 }
-@media (max-width: 767.98px) {
-    .navbar-brand { font-size: 1.3rem; }
+#future-content .card-title {
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+#selection-guide {
+    background-color: #f8f9fa; /* White section */
+    color: #212529;
+}
+#selection-guide h2 {
+    color: #DC3545; /* Red heading */
+}
+#selection-guide .list-group-item {
+    border-color: #dee2e6;
+}
+
+/* Form styling in Modal */
+.modal-content {
+    border: 2px solid #DC3545;
+}
+.form-label {
+    font-weight: bold;
+    color: #DC3545;
+}
+.form-control, .form-select {
+    background-color: #343a40;
+    color: #f8f9fa;
+    border-color: #DC3545;
+}
+.form-control:focus, .form-select:focus {
+    background-color: #495057;
+    color: #f8f9fa;
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+
+.btn-danger {
+    background-color: #DC3545;
+    border-color: #DC3545;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-light {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    color: #212529;
+    transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading Spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
 }
