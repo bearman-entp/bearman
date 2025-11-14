@@ -33,9 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 페이지 로드 시 BGM 재생 시도 (브라우저 정책에 따라 실패할 수 있음)
     // 사용자 첫 클릭 등의 상호작용 후 재생 권장
-    // 예를 들어, 페이지의 아무 곳이나 클릭 시 재생 시도:
     document.body.addEventListener('click', function attemptPlay() {
-        if (!isPlaying) {
+        if (!isPlaying && bgm.paused) { // 한 번만 시도하고, 실제로 paused 상태일 때만
             toggleBgm();
         }
         document.body.removeEventListener('click', attemptPlay);
@@ -73,7 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (rect.top < window.innerHeight * 0.8) {
                 section.classList.add('show');
             } else {
-                section.classList.remove('show'); // 다시 스크롤 올리면 사라지게
+                // 선택적으로 다시 스크롤 올리면 사라지게 하려면 아래 주석 해제
+                // section.classList.remove('show');
             }
         });
     };
@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             star.addEventListener('click', (e) => {
                 const rating = parseInt(e.target.dataset.value);
                 updateStars(rating);
+                starRatingContainer.classList.remove('is-invalid-stars'); // 별점 선택 시 유효성 경고 제거
             });
         });
 
@@ -126,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const surveyForm = document.getElementById('bearmanSurveyForm');
     const submitBtn = surveyForm ? surveyForm.querySelector('.survey-submit-btn') : null;
     const spinner = submitBtn ? submitBtn.querySelector('.spinner-border') : null;
-    const buttonText = submitBtn ? submitBtn.querySelector('.button-text') : null;
+    const buttonTextSpan = submitBtn ? submitBtn.querySelector('.button-text') : null;
 
     if (surveyForm) {
         surveyForm.addEventListener('submit', async (e) => {
@@ -136,7 +137,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const requiredFields = surveyForm.querySelectorAll('[required]');
             let allFieldsFilled = true;
             requiredFields.forEach(field => {
-                if (!field.value.trim() || (field.type === 'radio' && !surveyForm.querySelector(`input[name="${field.name}"]:checked`))) {
+                if (field.type === 'radio') {
+                    const radioGroup = surveyForm.querySelector(`input[name="${field.name}"]:checked`);
+                    if (!radioGroup) {
+                        field.closest('div.mb-3').classList.add('has-validation-error'); // 부모 요소에 에러 표시
+                        allFieldsFilled = false;
+                    } else {
+                        field.closest('div.mb-3').classList.remove('has-validation-error');
+                    }
+                } else if (!field.value.trim()) {
                     field.classList.add('is-invalid'); // Bootstrap 유효성 검사 클래스 추가
                     allFieldsFilled = false;
                 } else {
@@ -157,10 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // 버튼 상태 변경: 로딩 중...
             if (submitBtn) {
                 submitBtn.disabled = true;
                 if (spinner) spinner.classList.remove('d-none');
-                if (buttonText) buttonText.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 제출 중...';
+                if (buttonTextSpan) buttonTextSpan.innerHTML = '제출 중...';
             }
 
             const formData = new FormData(surveyForm);
@@ -170,66 +180,74 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Apps Script 웹 앱 URL (★★ 여기에 본인의 배포된 Apps Script URL을 넣어주세요! ★★)
-            const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbx-LYh9ZFn_zyDFpkF0s9SHL9i0TlRmQaeT-mR8PQYc2fyq5SpT6GpITfA-EKR4higYnA/exec'; // 이 부분을 반드시 수정!
+            const appsScriptUrl = 'YOUR_DEPLOYED_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; // 이 부분을 반드시 수정!
 
             try {
+                // fetch 요청 수정: mode를 'cors'로 변경하고 응답을 제대로 처리합니다.
                 const response = await fetch(appsScriptUrl, {
                     method: 'POST',
-                    mode: 'no-cors', // CORS 문제 우회를 위해 no-cors 사용. 실제 응답을 받지 못함.
-                                     // 응답을 받으려면 Apps Script에서 적절한 CORS 헤더를 설정하고 'cors' 모드를 사용해야 합니다.
-                                     // 하지만 여기서는 데이터 전송 성공 여부만 확인하므로 no-cors도 무방합니다.
+                    mode: 'cors', // CORS 정책에 따라 응답을 받기 위해 'cors' 모드 사용
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/x-www-form-urlencoded', // FormData 대신 일반 URL 인코딩 사용
                     },
-                    body: new URLSearchParams(data).toString(),
+                    body: new URLSearchParams(data).toString(), // FormData를 URLSearchParams로 변환
                 });
 
-                // no-cors 모드에서는 response.ok 등을 직접 확인할 수 없습니다.
-                // 성공적인 전송을 가정하고 처리하거나, 보다 정교한 오류 처리를 위해
-                // Apps Script에서 'Content-Type': 'application/json'과 함께 JSON 응답을 반환하고
-                // CORS 헤더를 설정한 후 mode: 'cors'로 변경하는 것이 좋습니다.
-
-                console.log('설문 데이터 전송 요청 완료 (응답 확인 불가: no-cors 모드)');
-
-                const surveyModalElement = document.getElementById('surveyModal');
-                const surveyModal = bootstrap.Modal.getInstance(surveyModalElement);
-                if (surveyModal) {
-                    surveyModal.hide(); // 설문 모달 닫기
+                if (!response.ok) {
+                    throw new Error(`HTTP 오류! 상태: ${response.status}`);
                 }
 
-                const submitSuccessModal = new bootstrap.Modal(document.getElementById('submitSuccessModal'));
-                submitSuccessModal.show(); // 성공 모달 보여주기
+                const result = await response.json(); // JSON 응답 파싱
 
-                surveyForm.reset(); // 폼 초기화
-                updateStars(0); // 별점 초기화
+                if (result.status === 'success') {
+                    console.log('설문 데이터 전송 성공:', result.message, '추가된 행:', result.rowAdded);
+
+                    const surveyModalElement = document.getElementById('surveyModal');
+                    const surveyModal = bootstrap.Modal.getInstance(surveyModalElement);
+                    if (surveyModal) {
+                        surveyModal.hide(); // 설문 모달 닫기
+                    }
+
+                    const submitSuccessModal = new bootstrap.Modal(document.getElementById('submitSuccessModal'));
+                    submitSuccessModal.show(); // 성공 모달 보여주기
+
+                    surveyForm.reset(); // 폼 초기화
+                    updateStars(0); // 별점 초기화
+                } else {
+                    throw new Error(result.message || 'Apps Script에서 오류 응답');
+                }
 
             } catch (error) {
                 console.error('설문 데이터 전송 실패:', error);
-                alert('설문 제출 중 오류가 발생했습니다. 다시 시도해주세요. 개발자에게 문의: ' + error.message);
+                alert('설문 제출 중 오류가 발생했습니다: ' + error.message + '\n콘솔 로그를 확인해주세요.');
             } finally {
+                // 버튼 상태 원래대로 복구
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     if (spinner) spinner.classList.add('d-none');
-                    if (buttonText) buttonText.innerHTML = '<i class="fas fa-paper-plane"></i> 설문 제출하기';
+                    if (buttonTextSpan) buttonTextSpan.innerHTML = '<i class="fas fa-paper-plane"></i> 설문 제출하기';
                 }
             }
         });
     }
 
-    // 모달이 닫힐 때 유효성 검사 상태 초기화
+    // 모달이 닫힐 때 유효성 검사 상태 초기화 및 폼 리셋
     const surveyModalElement = document.getElementById('surveyModal');
     if (surveyModalElement) {
         surveyModalElement.addEventListener('hidden.bs.modal', () => {
             const invalidFields = surveyForm.querySelectorAll('.is-invalid');
             invalidFields.forEach(field => field.classList.remove('is-invalid'));
+            const invalidRadioContainers = surveyForm.querySelectorAll('.has-validation-error');
+            invalidRadioContainers.forEach(container => container.classList.remove('has-validation-error'));
             const invalidStars = surveyForm.querySelector('.is-invalid-stars');
             if (invalidStars) invalidStars.classList.remove('is-invalid-stars');
+
             surveyForm.reset();
             updateStars(0);
             if (submitBtn) {
                 submitBtn.disabled = false;
                 if (spinner) spinner.classList.add('d-none');
-                if (buttonText) buttonText.innerHTML = '<i class="fas fa-paper-plane"></i> 설문 제출하기';
+                if (buttonTextSpan) buttonTextSpan.innerHTML = '<i class="fas fa-paper-plane"></i> 설문 제출하기';
             }
         });
     }
