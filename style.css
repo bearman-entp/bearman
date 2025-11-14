@@ -3,14 +3,14 @@
     --bearman-red: #E74C3C; /* Strong Red */
     --bearman-dark-red: #C0392B; /* Darker Red for accents */
     --bearman-white: #FFFFFF;
-    --bearman-dark-gray: #34495E;
+    --bearman-dark-gray: #2C3E50; /* 이전보다 더 진한 다크 그레이로 변경 */
     --bearman-light-gray: #ECF0F1;
 }
 
 body {
     font-family: 'Segoe UI', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
     background-color: var(--bearman-light-gray);
-    color: var(--bearman-dark-gray);
+    color: var(--bearman-dark-gray); /* 기본 글씨 색상을 다크 그레이로 설정 */
     overflow-x: hidden; /* Prevent horizontal scroll due to animations */
     scroll-behavior: smooth; /* 부드러운 스크롤 */
 }
@@ -68,8 +68,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzgiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgNzggMTAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNCAwVjIuNTU1NjdMNy43MDYyMiA1LjA2ODExTDQuMzU1MjUgOC41ODY2OEw4LjMxNTkzIDguMDgzMjJMOS4zMjEwNiAxNC42NDI3TDE1LjI1NTggMTEuMjMyOEwxOC41NTc5IDE1LjkxMTFMOS41NTIxOSAyNi4zMTc2TDE1Ljc1ODYgMzAuODE0Nkw2LjUwMjIyIDQ2Ljk3NzhMOC4xMzkwMiA0Ny42NDU3TDE4Ljc1MDQgMzIuODI1N0wyOC40MTYyIDM1LjU3MzVMMjQuNjMzMiAzOC44NTdMMzQuOTE1MiA0NS42ODAyTDM1LjMwODkgMzkuNjc1TDQxLjczNDUgNDMuOTI5Mkw0Mi4xNDc3IDM3Ljk3MDhMNDUuOTMxMyAzOS4zODczTDUwLjIxNDMgMzMuNTE3TDQzLjI4NzMgMzAuNjcxOUw0NS40NTkyIDI1LjMxODVMNDguNTM3MSAyNy40MTgyTDUzLjgxNDIgMjMuMTcyNUw0My4yNzk1IDE1LjY4ODFMNDQuMzA2NCAxNS4xMjcyTDQ5Ljk1NTYgMTguNTI5MUw1NS41ODgyIDE1Ljk0MTZMNTAuODAxMyAxMy41MDEzTDU2LjEyNzcgMTAuNzc4TDU4LjgwMTMgNi45MjM2M0w2My4yMDY4IDguOTUxNzlMNTUuNzU4NiAwSDU4Ljk4NzZMNzggMkg3OEwyNS44NzMyIDEwMFpNMzIgNzcuNjA1MkwzMi4wNTE2IDgwLjE0MTZMNjIuOTQ0NCAyOS45OTE0TDYyLjg5MjcgMjcuNDUzTDMyIDc3LjYwNTJaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjAiLz4KPC9zdmc+');
-    /*background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');*/
+    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzgiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgNzggMTAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy5wMy5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNCAwVjIuNTU1NjdMNy43MDYyMiA1LjA2ODExTDQuMzU1MjUgOC41ODY2OEw4LjMxNTkzIDguMDgzMjJMOS4zMjEwNiAxNC42NDI3TDE1LjI1NTggMTEuMjMyOEwxOC41NTc5IDE1LjkxMTFMOS41NTIxOSAyNi4zMTc2TDE1Ljc1ODYgMzAuODE0Nkw2LjUwMjIyIDQ2Ljk3NzhMOC4xMzkwMiA0Ny42NDU3TDE4Ljc1MDQgMzIuODI1N0wyOC40MTYyIDM1LjU3MzVMMjQuNjMzMiAzOC44NTdMMzQuOTE1MiA0NS42ODAyTDM1LjMwODkgMzkuNjc1TDQxLjczNDUgNDMuOTI5Mkw0Mi4xNDc3IDM3Ljk3MDhMNDUuOTMxMyAzOS4zODczTDUwLjIxNDMgMzMuNTE3TDQzLjI4NzMgMzAuNjcxOUw0NS40NTkyIDI1LjMxODVMNDguNTM3MSAyNy40MTgyTDUzLjgxNDIgMjMuMTcyNUw0My4yNzk1IDE1LjY4ODFMNDQuMzA2NCAxNS4xMjcyTDQ5LjU1NTYgMTguNTI5MUw1NS41ODgyIDE1LjY0MTZMNTAuODAxMyAxMy41MDEzTDU2LjEyNzcgMTAuNzc4TDU4LjgwMTMgNi45MjM2M0w2My4yMDY4IDguOTUxNzlMNTUuNzU4NiAwSDU4LjkwNzZMNzggMkg3OEwyNS44NzMyIDEwMFpNMzIgNzcuNjA1MkwzMi4wNTE2IDgwLjE0MTZMNjIuOTQ0NCAyOS45OTE0TDYyLjgzMjcgMjcuNDUzTDMyIDc3LjYwNTJaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjMiLz4=');
+    /* background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); // 대체 패턴 */
     opacity: 0.1; /* Semi-transparent pattern overlay */
     z-index: 1;
 }
@@ -115,12 +115,14 @@ body {
     position: relative;
     display: inline-block;
     overflow: hidden; /* For char-by-char animation */
+    color: var(--bearman-white) !important; /* Navbar 브랜드 글씨 색상 흰색 유지 */
 }
 
 .animate-char-by-char span {
     display: inline-block;
     opacity: 0;
     animation: charFadeIn 0.8s forwards;
+    color: var(--bearman-white); /* Navbar 브랜드 글씨 색상 흰색 유지 */
 }
 .animate-char-by-char span:nth-child(1) { animation-delay: 0.2s; }
 .animate-char-by-char span:nth-child(2) { animation-delay: 0.25s; }
@@ -138,6 +140,7 @@ body {
     overflow: hidden;
     padding-bottom: 5px; /* Space for underline */
     transition: color 0.3s ease;
+    color: var(--bearman-white) !important; /* Navbar 링크 글씨 색상 흰색 유지 */
 }
 .nav-link.nav-effect::after {
     content: '';
@@ -154,7 +157,7 @@ body {
     transform: translateX(0%);
 }
 .nav-link.nav-effect:hover {
-    color: var(--bearman-red);
+    color: var(--bearman-red) !important; /* Navbar 호버 시 빨간색 */
 }
 
 /* --- Section Scrolling Animations (general) --- */
@@ -166,7 +169,21 @@ body {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    color: var(--bearman-dark-gray); /* content-section 내부 글씨 색상 명확히 지정 */
 }
+/* content-section 내부 h2 태그의 색상도 명확히 지정 */
+.content-section h2 {
+    color: var(--bearman-red) !important;
+}
+/* content-section 내부 p 태그의 색상도 명확히 지정 */
+.content-section p {
+    color: var(--bearman-dark-gray) !important;
+}
+/* content-section 내부 li 태그의 색상도 명확히 지정 */
+.content-section ul li {
+    color: var(--bearman-dark-gray) !important;
+}
+
 .content-section.fade-in {
     opacity: 1;
     transform: translateY(0);
@@ -281,11 +298,31 @@ body {
     color: var(--bearman-red);
 }
 
+/* 별점 선택 필수 여부 강조를 위한 스타일 */
+.star-rating.is-invalid-stars {
+    border: 1px solid var(--bearman-red);
+    padding: 5px;
+    border-radius: 5px;
+}
+/* 라디오 버튼 그룹의 필수 입력 시 시각적 경고 */
+.has-validation-error label.form-label {
+    color: var(--bearman-red);
+}
+.has-validation-error .form-check-input:not(:checked) {
+    border-color: var(--bearman-red);
+}
+.has-validation-error .form-check-label {
+    color: var(--bearman-dark-gray); /* 라벨 자체는 어둡게 유지 */
+}
+
+
 /* Star Rating */
 .star-rating {
     font-size: 2rem;
     color: #FFD700; /* Gold color for stars */
     cursor: pointer;
+    display: inline-block; /* 인라인 블록으로 만들어 is-invalid-stars 테두리가 잘 보이게 */
+    padding: 0 5px;
 }
 .star-rating i {
     transition: transform 0.2s ease, color 0.2s ease;
