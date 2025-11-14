@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정상인 곰돌맨 시사회</title>
+    <!-- Bootstrap CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome (아이콘 사용을 위해) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 배경 음악 (BGM) -->
+    <audio id="bgm" src="bgm.mp3" loop></audio>
+    <div class="audio-control">
+        <i id="bgmToggle" class="fas fa-volume-up"></i>
+    </div>
+
+    <!-- 내비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-red fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand animate-char-by-char" href="#">정상인 곰돌맨</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-effect" href="#about-section">소개</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-effect" href="#plan-section">콘텐츠 플랜</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-effect" href="#invite-section">초청 방식</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-effect" href="https://youtube.com/@bearman_youtube_channel_link" target="_blank">시사회 영상 시청하기 <i class="fas fa-external-link-alt"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-lg-3 px-4 py-2 custom-btn-white" data-bs-toggle="modal" data-bs-target="#surveyModal">설문 참여하기</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 홈 섹션 -->
+    <header class="hero-section vh-100 d-flex justify-content-center align-items-center flex-column text-white">
+        <img src="hero-image.jpg" alt="시사회 메인 이미지" id="heroImage" class="img-fluid animate-on-load">
+        <div class="hero-buttons mt-4 opacity-0 animate-fade-in delay-2s">
+            <a href="https://youtube.com/@bearman_youtube_channel_link" target="_blank" class="btn custom-btn-red btn-lg me-3">
+                <i class="fas fa-video"></i> 시사회 영상 시청하기
+            </a>
+            <button class="btn custom-btn-white btn-lg" data-bs-toggle="modal" data-bs-target="#surveyModal">
+                <i class="fas fa-file-alt"></i> 설문 참여하기
+            </button>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        <!-- 소개 섹션 -->
+        <section id="about-section" class="my-5 p-4 rounded shadow-sm content-section">
+            <h2 class="text-center mb-4 text-red">🚀 '정상인 곰돌맨'은 누구?</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6 order-md-2 fade-in-scroll">
+                    <img src="https://via.placeholder.com/600x400/FF0000/FFFFFF?text=곰돌맨의+역작" alt="곰돌맨 소개 이미지" class="img-fluid rounded shadow-lg animated-border">
+                </div>
+                <div class="col-md-6 order-md-1 fade-in-scroll">
+                    <p class="lead text-dark-gray mt-3">안녕하세요, 이 시대의 '정상인'을 자처하는 기계 공학도, 곰돌맨입니다. 제 채널은 "쓸데없어 보이지만 묘하게 끌리는" 발명품들과 교통 관련 인사이트를 기상천외한 방식으로 탐구하는 공간입니다.</p>
+                    <p class="text-dark-gray">이번 시사회에서는 저의 첫 번째 대형 프로젝트를 공개합니다. 여러분의 통찰력과 기발한 아이디어가 곰돌맨 채널을 성장시키는 데 큰 도움이 될 것입니다. 기대해주세요! 🤯</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 콘텐츠 플랜 섹션 -->
+        <section id="plan-section" class="my-5 p-4 rounded shadow-sm content-section">
+            <h2 class="text-center mb-4 text-red">🔬 앞으로의 콘텐츠 플랜</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <div class="col scale-up-scroll">
+                    <div class="card h-100 border-red card-hover-effect">
+                        <img src="https://via.placeholder.com/400x250/FF4444/FFFFFF?text=괴상한+발명품+1" class="card-img-top" alt="콘텐츠 이미지1">
+                        <div class="card-body">
+                            <h5 class="card-title text-red">인스턴트 빼빼로 발사기 2.0</h5>
+                            <p class="card-text text-dark-gray">고도로 정밀화된 투척 시스템! 단 한 발로 주변을 초토화시키는 그 날까지!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col scale-up-scroll">
+                    <div class="card h-100 border-red card-hover-effect">
+                        <img src="https://via.placeholder.com/400x250/FF8888/FFFFFF?text=로켓+배송+구현?" class="card-img-top" alt="콘텐츠 이미지2">
+                        <div class="card-body">
+                            <h5 class="card-title text-red">로켓 배송 현실화 프로젝트 🚀</h5>
+                            <p class="card-text text-dark-gray">로켓으로 치킨 배달을? 불가능은 없다! 오직 공학적으로만 접근합니다.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col scale-up-scroll">
+                    <div class="card h-100 border-red card-hover-effect">
+                        <img src="https://via.placeholder.com/400x250/FFBBBB/FFFFFF?text=엄마+잔소리+퇴치!" class="card-img-top" alt="콘텐츠 이미지3">
+                        <div class="card-body">
+                            <h5 class="card-title text-red">엄마 잔소리 방지용 오뚝이</h5>
+                            <p class="card-text text-dark-gray">잔소리 볼륨이 커지면 스스로 흔들리며 '효도하겠습니다'를 외치는 오뚝이.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center mt-4 text-muted slide-in-scroll">이 외에도 수많은 기상천외한 아이디어들이 여러분을 기다립니다! 😈</p>
+        </section>
+
+        <!-- 초청 방식 섹션 -->
+        <section id="invite-section" class="my-5 p-4 rounded shadow-sm content-section">
+            <h2 class="text-center mb-4 text-red">🎟️ 시사회 초청인 선발 방식 안내</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6 slide-in-left-scroll">
+                    <p class="lead text-dark-gray">이번 '정상인 곰돌맨' 첫 시사회는 여러분의 소중한 피드백을 바탕으로 채널의 방향을 정하는 데 중요한 역할을 합니다.</p>
+                    <ul class="list-unstyled invite-list">
+                        <li class="d-flex align-items-start mb-2"><i class="fas fa-check-circle text-red me-2 mt-1"></i> <strong>설문조사 참여:</strong> 시청 후 솔직하고 기발한 감상평을 남겨주세요.</li>
+                        <li class="d-flex align-items-start mb-2"><i class="fas fa-check-circle text-red me-2 mt-1"></i> <strong>창의적 의견:</strong> 단순한 칭찬보다는 콘텐츠에 대한 예리한 분석과 독창적인 개선 방안을 제시한 분.</li>
+                        <li class="d-flex align-items-start mb-2"><i class="fas fa-check-circle text-red me-2 mt-1"></i> <strong>곰돌맨 스타일 이해:</strong> '공학적 유머'와 '괴상하지만 실용적인' 가치를 누구보다 잘 이해하는 분.</li>
+                        <li class="d-flex align-items-start mb-2"><i class="fas fa-award text-red me-2 mt-1"></i> 최종 선발된 분들께는 추후 특별한 곰돌맨 굿즈와 함께 찐팬 인증 기회가 주어집니다!</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 text-center slide-in-right-scroll">
+                    <img src="https://via.placeholder.com/500x350/FF0000/FFFFFF?text=시사회+초대권" alt="초대권 이미지" class="img-fluid rounded shadow-lg animated-border">
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <button class="btn custom-btn-red btn-lg animate-pulse" data-bs-toggle="modal" data-bs-target="#surveyModal">
+                    <i class="fas fa-pencil-alt"></i> 지금 바로 초청인에 도전하기!
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 설문조사 모달 -->
+    <div class="modal fade" id="surveyModal" tabindex="-1" aria-labelledby="surveyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-dark-red text-white">
+                    <h5 class="modal-title" id="surveyModalLabel">곰돌맨 시사회 설문조사 📝</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted mb-4">정상인 곰돌맨의 첫 시사회를 빛내주셔서 감사합니다! 아래 설문에 참여하여 채널 발전에 소중한 의견을 부탁드립니다. (* 표시는 필수 입력 항목입니다)</p>
+                    <form id="bearmanSurveyForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label required">이름</label>
+                            <input type="text" class="form-control" id="name" name="name" required placeholder="본명을 입력해주세요!">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dob" class="form-label required">생년월일</label>
+                            <input type="date" class="form-control" id="dob" name="dob" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required">성별</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderMale" value="남성" required>
+                                    <label class="form-check-label" for="genderMale">남성</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="여성" required>
+                                    <label class="form-check-label" for="genderFemale">여성</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderAlien" value="외계인" disabled>
+                                    <label class="form-check-label text-muted" for="genderAlien">외계인이라..👽 (선택불가)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ageGroup" class="form-label required">나이대</label>
+                            <select class="form-select" id="ageGroup" name="ageGroup" required>
+                                <option value="">나이대를 선택해주세요</option>
+                                <option value="10대">10대</option>
+                                <option value="20대">20대</option>
+                                <option value="30대">30대</option>
+                                <option value="40대">40대</option>
+                                <option value="50대">50대</option>
+                                <option value="60대">60대</option>
+                                <option value="70대">70대</option>
+                                <option value="80대">80대</option>
+                                <option value="90대">90대</option>
+                                <option value="100대이상">100대 이상</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="motive" class="form-label required">참석 동기</label>
+                            <textarea class="form-control" id="motive" name="motive" rows="3" required placeholder="무엇이 당신을 '정상인 곰돌맨'에게 이끌었나요?"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required">시청한 콘텐츠에 대한 취향 적중률</label>
+                            <div id="starRating" class="star-rating" data-rating="0" required>
+                                <i class="far fa-star" data-value="1"></i>
+                                <i class="far fa-star" data-value="2"></i>
+                                <i class="far fa-star" data-value="3"></i>
+                                <i class="far fa-star" data-value="4"></i>
+                                <i class="far fa-star" data-value="5"></i>
+                                <input type="hidden" id="tasteRate" name="tasteRate" required>
+                            </div>
+                            <small class="form-text text-muted" id="ratingMessage">별 5개가 곧 채널 구독 각! ⭐️</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="review" class="form-label required">시청한 콘텐츠에 대한 감상평</label>
+                            <textarea class="form-control" id="review" name="review" rows="5" required placeholder="신박한 관점에서 느낀 점을 자유롭게 적어주세요. 곰돌맨의 심금을 울릴지도!"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expectedFlow" class="form-label required">시청한 콘텐츠에 대한 예상 흐름</label>
+                            <textarea class="form-control" id="expectedFlow" name="expectedFlow" rows="5" required placeholder="예) 이 콘텐츠 하나로 구독자가 100만 될 것 같다! 또는 기계 공학적 난관 봉착 예상 등 구체적으로 적어주세요."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expectation" class="form-label required">정상인 곰돌맨 채널에 기대하는 바</label>
+                            <textarea class="form-control" id="expectation" name="expectation" rows="3" required placeholder="앞으로 어떤 괴상하고도 유익한(?) 콘텐츠를 보고 싶으신가요?"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label required">곰돌맨에게 하고 싶은 말</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" required placeholder="응원의 메시지, 따끔한 조언 등 자유롭게 전달해주세요."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="question" class="form-label">곰돌맨에게 질문 (선택)</label>
+                            <textarea class="form-control" id="question" name="question" rows="3" placeholder="질문은 답변받을 수도 있고, 미스터리로 남을 수도 있습니다..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="otherRemarks" class="form-label">기타사항 (선택)</label>
+                            <textarea class="form-control" id="otherRemarks" name="otherRemarks" rows="5" placeholder="장문형입니다. 그 어떤 것도 좋아요!"></textarea>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn custom-btn-red btn-lg survey-submit-btn">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                <span class="button-text"><i class="fas fa-paper-plane"></i> 설문 제출하기</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 제출 완료 알림 모달 -->
+    <div class="modal fade" id="submitSuccessModal" tabindex="-1" aria-labelledby="submitSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="submitSuccessModalLabel">🎉 제출 완료!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="lead mb-3">주인님의 소중한 의견이 곰돌맨에게 성공적으로 전달되었습니다!</p>
+                    <i class="fas fa-rocket fa-4x text-success mb-4 animate-rocket"></i>
+                    <p>곰돌맨이 당신의 감상평을 읽고 벌써 다음 콘텐츠 구상에 들어갔답니다. 감사합니다! 😉</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn custom-btn-red" data-bs-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
