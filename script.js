@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Apps Script 웹 앱 URL (★★ 여기에 본인의 배포된 Apps Script URL을 넣어주세요! ★★)
-            const appsScriptUrl = 'YOUR_DEPLOYED_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; // 이 부분을 반드시 수정!
+            const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbytdxvrfcEQGS8fT-Y1jN7DZFSNDcvegs-NxUjFLKWl1oA_GX_DnI_5TmDhqxBf6jM-oA/exec'; // 이 부분을 반드시 수정!
 
             try {
                 // fetch 요청 수정: mode를 'cors'로 변경하고 응답을 제대로 처리합니다.
