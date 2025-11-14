@@ -2,10 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. 홈 화면 이미지 로딩 애니메이션
     const heroImage = document.getElementById('heroImage');
     const heroButtons = document.querySelector('.hero-buttons');
-    if (heroImage && heroButtons) {
-        // 이미지는 CSS 애니메이션으로 처리 (animate-on-load 클래스)
-        // 버튼은 CSS 애니메이션으로 처리 (animate-fade-in delay-2s 클래스)
-    }
+    // 이 부분은 CSS 애니메이션이 처리하므로 JS에서 직접 제어할 필요가 줄어듭니다.
+    // CSS의 animate-on-load와 animate-fade-in 클래스들이 애니메이션을 담당합니다.
 
     // 2. BGM 자동 재생 및 컨트롤
     const bgm = document.getElementById('bgm');
@@ -182,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Apps Script 웹 앱 URL (★★ 여기에 본인의 배포된 Apps Script URL을 넣어주세요! ★★)
-            const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbytdxvrfcEQGS8fT-Y1jN7DZFSNDcvegs-NxUjFLKWl1oA_GX_DnI_5TmDhqxBf6jM-oA/exec'; // 이 부분을 반드시 수정!
+            const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbxltY_NO3BsvWP4TN5YKlONyMP61UvA9KEONWSDtfe6apCMwdxz3F9xbj4igR6tOOi4Iw/exec'; // 이 부분을 반드시 수정!
 
             try {
                 // fetch 요청 수정: mode를 'cors'로 변경하고 응답을 제대로 처리합니다.
